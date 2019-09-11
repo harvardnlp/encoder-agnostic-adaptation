@@ -1,0 +1,44 @@
+data: data/imdb/IMDB_BPETGT
+save_checkpoint_steps: 1000
+keep_checkpoint: 3
+seed: 123
+warmup_steps: 1000
+train_steps: 10000
+valid_steps: 40
+report_every: 40
+
+decoder_type: transformer
+encoder_type: mean
+word_vec_size: 512
+rnn_size: 512
+enc_layers: 1
+dec_layers: 4
+transformer_ff: 2048
+heads: 8
+
+accum_count: 16
+optim: adam
+adam_beta1: 0.9
+adam_beta2: 0.998
+decay_method: noam
+learning_rate: 2.0
+max_grad_norm: 0.0
+
+batch_size: 2200
+batch_type: tokens
+normalization: tokens
+dropout: 0.2
+label_smoothing: 0.1
+
+max_generator_batches: 2
+
+param_init: 0.0
+param_init_glorot: 'true'
+position_encoding: 'true'
+position_encoding_ctxsize: 1024
+share_decoder_embeddings: 'true'
+
+world_size: 1
+gpu_ranks:
+- 0
+tensorboard: 'true'
