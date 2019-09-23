@@ -25,7 +25,7 @@ class TranslationBuilder(object):
                  has_tgt=False):
         self.data = data
         self.fields = fields
-        self._has_text_src = hasattr(self.fields, 'src') and isinstance(
+        self._has_text_src = 'src' in self.fields and isinstance(
             dict(self.fields)["src"], TextMultiField)
         self.n_best = n_best
         self.replace_unk = replace_unk
