@@ -85,6 +85,7 @@ Generation is performed via top-k/random sampling.
 `python translate.py -beam_size 1 -random_sampling_topk 100 -random_sampling_temp 0.9 -model <path/to/model.pt> -src data/stories/test.wp_source.bpe -max_length 1000 -verbose`
 
 Evaluate perplexity with test target.
+
 `python translate.py -beam_size 1 -random_sampling_topk 100 -random_sampling_temp 0.9 -model <path/to/model.pt> -src data/stories/test.wp_source.bpe -tgt data/stories/test.wp_target.bpe -max_length 1000 -verbose -seed 111`
 
 ## Image captioning
