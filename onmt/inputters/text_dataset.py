@@ -182,7 +182,7 @@ def text_fields(**kwargs):
     truncate = kwargs.get("truncate", None)
     fields_ = []
     feat_delim = u"￨" if n_feats > 0 else None
-    for i in range(n_feats + 1):
+    for i in range(n_feats):
         name = base_name + "_feat_" + str(i - 1) if i > 0 else base_name
         truncated = [0]
         tokenize = partial(
