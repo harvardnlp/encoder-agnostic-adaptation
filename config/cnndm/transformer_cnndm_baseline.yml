@@ -43,10 +43,12 @@ share_embeddings: 'true'
 
 copy_attn: 'true'
 
-world_size: 4
-gpu_ranks:
-- 0
-- 1
-- 2
-- 3
+# world_size must be according to the number of GPU's used.
+world_size: 1
+# Setting CPU by default, Not everyone has GPU. For GPU uncomment the following lines
+#gpu_ranks: 
+#- 0
+#- 1
+#- 2
+#- 3
 tensorboard: 'true'

@@ -42,6 +42,6 @@ position_encoding_ctxsize: 1024
 share_decoder_embeddings: 'true'
 
 world_size: 1
-gpu_ranks:
-- 0
+#gpu_ranks:
+#- 0
 tensorboard: 'true'

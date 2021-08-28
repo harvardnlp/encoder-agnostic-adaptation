@@ -2,19 +2,36 @@
 
 This repo contains the code used in [Encoder-Agnostic Adaptation for Conditional Language Generation](https://arxiv.org/abs/1908.06938), Zachary M. Ziegler, Luke Melas-Kyriazi, Sebastian Gehrmann and Alexander M. Rush. It extends [OpenNMT-py](https://github.com/OpenNMT/OpenNMT-py).
 
-This code was tested with `pytorch 1.0.1`. See requirements.txt for a complete list of dependencies.
+This code was tested with `pytorch 1.2.0`. See requirements.txt for a complete list of dependencies.
+This was made to run with the following dependencies:
+
+1. Install python 3.6.1 (3.7 Also works fine).
+2. Install pip 21.0.1 via `pip install --upgrade pip`.
+3. Install python dependencies via `pip install -r /requirements.txt`.
+
+## Download Datasets
+
+The datasets used are provided [here](https://github.com/abisee/cnn-dailymail) `Python 2` or `Python 3` [here](https://github.com/saadz-khan/cnn-dailymail).
+
+1. Download the stories files.
+2. Process the raw stories from the above repositories follow this notebook in `google-colab` [here](https://github.com/saadz-khan/cnn-dailymail/blob/master/made_easy.ipynb) for easy use.
+3. Convert the format from `.bin` to `.txt.tgt` and `.txt.src` using [this](https://gist.github.com/jorgeramirez/15286b588dc2669ced95bbf6a6803420) script (Every .bin file seperately) or the above notebook.
+
 
 ## Download GPT2 weights
 
 `cd gpt2 && python download_model.py 124M`
 
+
+## Data-Used
+
+The BPEized data used in the experiments in the paper can be found [here](https://drive.google.com/file/d/1Z6AdOr2MtWlN7sYRTMibzAcghBjSBzZK/view?usp=sharing). To run any of these models with your own data you should first BPEize it with `python gpt2/encode_text.py <filename>`. Before training the raw data is preprocessed into binary data shards.
+
+
 ## General notes
 
 All experiments use gradient accumulation to mimic the large batch sizes these hyperparameter settings were optimized for by e.g. Facebook. If you run into GPU memory issues simply reduce the batch size and increase the `accum_count` to keep the effective batch size the same.
 
-## Data
-
-The BPEized data used in the experiments in the paper can be found [here](https://drive.google.com/file/d/1Z6AdOr2MtWlN7sYRTMibzAcghBjSBzZK/view?usp=sharing). To run any of these models with your own data you should first BPEize it with `python gpt2/encode_text.py <filename>`. Before training the raw data is preprocessed into binary data shards with the commands below.
 
 ## Class-conditional generation
 
@@ -22,7 +39,10 @@ The BPEized data used in the experiments in the paper can be found [here](https:
 
 `python preprocess.py -train_src data/imdb/train.src.bpe -train_tgt data/imdb/train.tgt.bpe -valid_src data/imdb/valid.src.bpe -valid_tgt data/imdb/valid.tgt.bpe -save_data data/imdb/IMDB_BPETGT -tgt_seq_length_trunc 400 -tgt_vocab gpt2/vocab.txt -fixed_vocab -free_src`
 
-### Train
+### Train  
+
+Kindly change the config files accordingly for `paths`, `gpu_ranks`, `world_size` and adjust `accum_count` so the effective batch size remains the same.
+
 **Baseline**: `python train.py -config config/imdb/transformer_imdb_cond.yml -run_name baseline`
 
 **Simple fusion**: `python train.py -config config/imdb/transformer_imdb_cond.yml -run_name simple_fusion -gpt2_params_path gpt2/models/124M/ -simple_fusion -dropout 0.1 -accum_count 30 -batch_size 1000 -valid_batch_size 16`
@@ -83,7 +103,3 @@ The default settings use 4 GPUs (see config files). If using more GPUs or fewer 
 Generation is performed via top-k/random sampling.
 
 `python translate.py -beam_size 1 -random_sampling_topk 100 -random_sampling_temp 0.9 -model <path/to/model.pt> -src data/stories/test.wp_source.bpe -max_length 1000 -verbose`
-
-## Image captioning
-
-Coming soon...

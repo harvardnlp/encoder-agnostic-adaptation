@@ -12,6 +12,7 @@
 from copy import deepcopy
 import itertools
 import torch
+import time
 
 import onmt.utils
 from onmt.utils.logging import logger
@@ -198,10 +199,9 @@ class Trainer(object):
                 train_iter, self.gpu_rank, None, self.n_gpu)
 
         #torch.cuda.synchronize()
-        #last_end_time = time.time()
         for i, (batches, normalization) in enumerate(
                 self._accum_batches(train_iter)):
-            #print('batch time: %0.5f' % (time.time() - last_end_time))
+            start_time = time.time()
             step = self.optim.training_step
 
             if self.gpu_verbose_level > 1:
@@ -257,7 +257,7 @@ class Trainer(object):
                 break
             
             #torch.cuda.synchronize()
-            #last_end_time = time.time()
+            print(f"batch time: {time.time() - start_time} step {step}") 
 
         if self.model_saver is not None:
             self.model_saver.save(step, moving_average=self.moving_average)
