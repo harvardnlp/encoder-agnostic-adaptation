@@ -20,11 +20,12 @@ python data_convert_example.py --command text_to_binary --in_file /path/to_text/
 """
 
 """
-Uses Tensorflow 1.x 
+For this scipt use Tensorflow 1.15.2
 Modified version: 
 I adapted the _binary_to_text function so that it outputs the format expected by NeuSum (https://github.com/magic282/NeuSum)
   article  => out_file.txt.src.txt
   abstract => out_file.txt.tgt.txt
+  The next step is a bad solution but works.
   Rename the file (Necessary so that the encode_text.py can find data for BPEising it)
   article => out_file.txt.src
   abstract => out_file.txt.tgt  
