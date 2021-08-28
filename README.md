@@ -1,28 +1,27 @@
 # Encoder-Agnostic Adaptation for Conditional Language Generation
 
-
-This was made to run with the following dependencies:
-
-1. Install python 3.6.1.
-2. Install pip 21.0.1 via `pip install --upgrade pip`.
-3. Install python dependencies via `pip install -r ./requirements.txt`.
-
-### Download Datasets
-
-The datasets used are provided [here](https://github.com/abisee/cnn-dailymail) `Python 2` or `Python 3` [here](https://github.com/becxer/cnn-dailymail/).
-
-0. Download the processed data.
-1. Convert the format from `.bin` to `.txt.tgt` and `.txt.src` using [this](https://gist.github.com/jorgeramirez/15286b588dc2669ced95bbf6a6803420) script (Every .bin file seperately).    
-
-
 This repo contains the code used in [Encoder-Agnostic Adaptation for Conditional Language Generation](https://arxiv.org/abs/1908.06938), Zachary M. Ziegler, Luke Melas-Kyriazi, Sebastian Gehrmann and Alexander M. Rush. It extends [OpenNMT-py](https://github.com/OpenNMT/OpenNMT-py).
 
 This code was tested with `pytorch 1.2.0`. See requirements.txt for a complete list of dependencies.
+This was made to run with the following dependencies:
+
+1. Install python 3.6.1 (3.7 Also works fine).
+2. Install pip 21.0.1 via `pip install --upgrade pip`.
+3. Install python dependencies via `pip install -r /requirements.txt`.
+
+## Download Datasets
+
+The datasets used are provided [here](https://github.com/abisee/cnn-dailymail) `Python 2` or `Python 3` [here](https://github.com/saadz-khan/cnn-dailymail).
+
+1. Download the stories files.
+2. Process the raw stories from the above repositories follow this notebook in `google-colab` [here](https://github.com/saadz-khan/cnn-dailymail/blob/master/made_easy.ipynb) for easy use.
+3. Convert the format from `.bin` to `.txt.tgt` and `.txt.src` using [this](https://gist.github.com/jorgeramirez/15286b588dc2669ced95bbf6a6803420) script (Every .bin file seperately) or the above notebook.
 
 
 ## Download GPT2 weights
 
 `cd gpt2 && python download_model.py 124M`
+
 
 ## Data-Used
 
