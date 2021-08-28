@@ -40,7 +40,10 @@ def _tally_parameters(model, only_trainable=False):
 
 def configure_process(opt, device_id):
     if device_id >= 0:
-        torch.cuda.set_device(device_id)
+        try:
+            torch.cuda.set_device(device_id)
+        except AttributeError:
+            print("Failed to set CUDA device, using CPU")
     set_random_seed(opt.seed, device_id >= 0)
 
 
